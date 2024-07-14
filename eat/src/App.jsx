@@ -11,11 +11,7 @@ const MyComponent = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://stoic.tekloon.net/stoic-quote", {
-        headers: {
-          'Access-Control-Allow-Origin': '*'
-        }
-      });
+      const response = await fetch("https://stoic.tekloon.net/stoic-quote");
       const result = await response.json();
       setData(result);
       console.log(data);
@@ -23,7 +19,6 @@ const MyComponent = () => {
       console.error(error);
     }
   };
-  
 
   useEffect(() => {
     const theme = localStorage.getItem('theme')
@@ -60,7 +55,7 @@ const MyComponent = () => {
   return (
     <main className="min-h-screen bg-white flex flex-col justify-center items-center font-IBM text-text dark:bg-black dark:text-white">
      {darkMode ? (<img src="./src/assets/titlewhite.png" alt="logo"  className="absolute top-4 left-12 z-50 h-8 cursor-pointer"  onClick={fetchData}/>):
-     (<img src="./src/assets/title.png" alt="logo"  className="absolute top-4 left-12 z-50 h-8 cursor-pointer" />)
+     (<img src="./src/assets/title.png" alt="logo"  className="absolute top-4 left-12 z-50 h-8 cursor-pointer" onClick={fetchData} />)
      }
       <button onClick={trigger} className="absolute top-4 right-12 z-50 text-sm hover:font-bold">       
         Dark
