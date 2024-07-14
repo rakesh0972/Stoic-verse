@@ -4,6 +4,8 @@ import icon from "./assets/shuffle.svg";
 const MyComponent = () => {
   const [data, setData] = useState();
   const [darkMode, setDarkMode] = useState(true);
+  const [isMobile, setIsMobile] = useState(false); // State to detect mobile device
+
   function trigger() {
     setDarkMode(!darkMode);
   }
@@ -27,14 +29,25 @@ const MyComponent = () => {
   }, []);
 
   useEffect(() => {
-    if (darkMode == true) {
+    if (darkMode) {
       document.documentElement.classList.add("dark");
-      localStorage.getItem("theme", "dark");
+      localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
     }
   }, [darkMode]);
+
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent;
+    const isMobileDevice =
+      Boolean(
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          userAgent
+        )
+      ) || window.innerWidth <= 800; // Adjust screen width threshold as needed
+    setIsMobile(isMobileDevice);
+  }, []);
 
   const openDribble = () => {
     window.open("https://dribbble.com/hi_Rakesh", "_blank");
@@ -49,6 +62,12 @@ const MyComponent = () => {
     );
   };
 
+  const handleButtonClick = () => {
+    if (!isMobile) {
+      fetchData();
+    }
+  };
+
   return (
     <main className="min-h-screen bg-white flex flex-col justify-center items-center font-IBM text-text dark:bg-black dark:text-white">
       {darkMode ? (
@@ -56,7 +75,7 @@ const MyComponent = () => {
           src="./src/assets/titlewhite.png"
           alt="logo"
           className="absolute top-4 left-12 z-50 h-8 cursor-pointer"
-          onClick={fetchData}
+          onClick={handleButtonClick}
         />
       ) : (
         <img
@@ -88,7 +107,7 @@ const MyComponent = () => {
 
       <button
         className="bg-green rounded-full p-3 md:p-4 mt-6 md:mt-8"
-        onClick={fetchData}
+        onClick={handleButtonClick}
       >
         <img
           src={icon}
@@ -106,19 +125,19 @@ const MyComponent = () => {
             className="hover:font-bold text-[12px] md:text-base"
             onClick={openDribble}
           >
-            <p>Dribbble</p>
+            Dribbble
           </button>
           <button
             className="hover:font-bold text-[12px] md:text-base"
             onClick={openInstagram}
           >
-            <p>Instagram</p>
+            Instagram
           </button>
           <button
             className="hover:font-bold text-[12px] md:text-base"
             onClick={openLinkedIn}
           >
-            <p>LinkedIn</p>
+            LinkedIn
           </button>
         </div>
       </footer>
