@@ -11,13 +11,19 @@ const MyComponent = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://stoic.tekloon.net/stoic-quote");
+      const response = await fetch("https://stoic.tekloon.net/stoic-quote", {
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
       const result = await response.json();
       setData(result);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   useEffect(() => {
     const theme = localStorage.getItem('theme')
