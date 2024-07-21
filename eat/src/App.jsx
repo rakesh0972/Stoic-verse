@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import icon from "./assets/shuffle.svg";
+import dark from "/public/title.png";
+import white from "./assets/titlewhite.png";
 
 const MyComponent = () => {
   const [data, setData] = useState();
@@ -54,11 +56,11 @@ const MyComponent = () => {
 
   return (
     <main className="min-h-screen bg-white flex flex-col justify-center items-center font-IBM text-text dark:bg-black dark:text-white">
-     {darkMode ? (<img src="./src/assets/titlewhite.png" alt="logo"  className="absolute top-4 left-12 z-50 h-8 cursor-pointer"  onClick={fetchData}/>):
-     (<img src="./src/assets/title.png" alt="logo"  className="absolute top-4 left-12 z-50 h-8 cursor-pointer" onClick={fetchData} />)
+     {darkMode ? (<img src={white} alt="logo"  className="absolute top-4 left-12 z-50 h-8 cursor-pointer"  onClick={fetchData}/>):
+     (<img src={dark} alt="logo"  className="absolute top-4 left-12 z-50 h-8 cursor-pointer" onClick={fetchData} />)
      }
       <button onClick={trigger} className="absolute top-4 right-12 z-50 text-sm hover:font-bold">       
-       {darkMode ? 'Dark' : 'Light' } 
+       {darkMode ? 'Light' : 'Dark' } 
       </button>
       <div className="bg-gray flex flex-col justify-center items-center  p-6 md:p-12 mx-8 md:mx-48 rounded-md dark:bg-darkGray">
         {data ? (
